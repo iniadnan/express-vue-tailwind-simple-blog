@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    html {
+        height: 100%;
+        width: 100%;
+        background-color: #F8fbf8;
+    }
+    body {
+        width: 100%;
+        position: relative;
+        margin: 0px auto;
+        font-family: 'Open Sans', sans-serif;
+    }
+    button, a {
+        transition: 0.2s ease-in;
+        color: inherit;
+    }
+    input, textarea, button {
+        outline: none;
+    }
+}
