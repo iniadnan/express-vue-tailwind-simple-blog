@@ -8,6 +8,16 @@
                     >INIBLOG</router-link
                 >
                 <router-link
+                    class="font-medium text-base text-gray-800"
+                    to="/"
+                    >Articles</router-link
+                >
+                <router-link
+                    class="font-medium text-base text-gray-800"
+                    to="/"
+                    >Users</router-link
+                >
+                <router-link
                     class="
                         h-12
                         w-12
@@ -43,7 +53,7 @@
 
 <script>
 export default {
-    name: 'Header',
+    name: 'HeaderAdmin',
 };
 </script>
 

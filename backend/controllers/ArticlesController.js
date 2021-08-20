@@ -1,5 +1,27 @@
 // Import All Model Users
-import { insertArticle } from "../models/ArticlesModel.js";
+import { getAllArticle, getSingleArticle, insertArticle } from "../models/ArticlesModel.js";
+
+// GET ALL ARTICLE
+export const showAllArticle = (req, res) => {
+  getAllArticle((err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(results);
+    }
+  });
+}
+
+// GET ALL ARTICLE
+export const showSingleArticle = (req, res) => {
+  getSingleArticle(req.params.slug, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(results);
+    }
+  });
+}
 
 // CREATE NEW USERS
 export const createArticle = (req, res) => {

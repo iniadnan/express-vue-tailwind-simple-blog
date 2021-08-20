@@ -1,6 +1,36 @@
 import db from "../configs/database.js";
 import { v4 as uuidv4 } from "uuid";
 
+// GET ALL ARTICLE
+export const getAllArticle = (result) => {
+  db.query(
+    "SELECT * FROM articles ORDER BY created_at",
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        result(err, null);
+      } else {
+        result(null, results);
+      }
+    }
+  );
+}
+
+// GET SINGLE ARTICLE
+export const getSingleArticle = (slug, result) => {
+  db.query(
+    "SELECT * FROM articles WHERE slug = ?", [slug],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        result(err, null);
+      } else {
+        result(null, results);
+      }
+    }
+  );
+}
+
 // CREATE NEW USER
 export const insertArticle = (data, result) => {
   data.id = uuidv4();

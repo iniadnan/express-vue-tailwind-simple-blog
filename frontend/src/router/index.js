@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/views/Home.vue';
+import ArticleDetail from '@/views/ArticleDetail.vue';
 import Login from '@/views/Login.vue';
 import Register from '@/views/Register.vue';
 import AdminHome from '@/views/admin/AdminHome.vue';
@@ -10,6 +11,12 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home,
+    },
+    {
+        path: '/article/:slug',
+        name: 'ArticleDetail',
+        component: ArticleDetail,
+        props: true,
     },
     {
         path: '/login',

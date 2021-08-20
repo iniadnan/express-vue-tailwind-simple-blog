@@ -11,7 +11,7 @@
                 group
                 hover:shadow-md
             "
-            to="/"
+            :to="{ name: 'ArticleDetail', params: { slug: article.slug } }"
         >
             <div class="w-full">
                 <img
@@ -30,14 +30,13 @@
                         group-hover:text-red-400
                     "
                 >
-                    Lorem Ipsum See You In Morning
+                    {{ article.title }}
                 </h2>
                 <p class="text-lg text-gray-700 tracking-wide mb-6">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Ducimus ad aspernatur consequuntur minus...
+                    {{ sliceString(article.description) }}...
                 </p>
                 <div class="flex items-center">
-                    <div class="flex items-center text-blue-400">
+                    <div class="flex items-center text-purple-400">
                         <svg
                             class="w-5 h-5"
                             fill="none"
@@ -58,8 +57,9 @@
                                 d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                             ></path>
                         </svg>
-                        <span class="pl-2 font-semibold text-sm text-blue-500"
-                            >Banjarnegara, Central Java</span
+                        <span
+                            class="pl-2 font-semibold text-sm text-purple-400"
+                            >{{ article.location }}</span
                         >
                     </div>
                 </div>
@@ -71,9 +71,18 @@
 <script>
 export default {
     name: 'ArticleList',
+    props: {
+        article: {
+            type: Object,
+            required: true,
+        },
+    },
     methods: {
         getImage(img) {
             return require(`@/assets/images/articles/${img}`);
+        },
+        sliceString(val) {
+            return val.slice(0, 200);
         },
     },
 };
