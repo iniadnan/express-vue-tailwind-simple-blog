@@ -4,6 +4,8 @@ import ArticleDetail from '@/views/ArticleDetail.vue';
 import Login from '@/views/Login.vue';
 import Register from '@/views/Register.vue';
 import AdminHome from '@/views/admin/AdminHome.vue';
+import AdminListArticle from '@/views/admin/AdminListArticle.vue';
+import AdminListUser from '@/views/admin/AdminListUser.vue';
 import AdminAddArticle from '@/views/admin/AdminAddArticle.vue';
 
 const routes = [
@@ -32,6 +34,16 @@ const routes = [
         path: '/admin',
         name: 'AdminHome',
         component: AdminHome,
+    },
+    {
+        path: '/admin/list-article',
+        name: 'AdminListArticle',
+        component: AdminListArticle,
+    },
+    {
+        path: '/admin/list-user',
+        name: 'AdminListUser',
+        component: AdminListUser,
     },
     {
         path: '/admin/add-article',

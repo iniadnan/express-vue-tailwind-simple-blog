@@ -2,7 +2,7 @@
     <main>
         <div class="container">
             <div class="w-5/12 mx-auto flex flex-wrap py-12">
-                <form class="w-full block" @submit.prevent="">
+                <form class="w-full block" @submit.prevent="login">
                     <div class="mb-5">
                         <label
                             class="font-medium text-lg text-gray-800"
@@ -136,6 +136,13 @@ export default {
                 password: '',
             },
         };
+    },
+    methods: {
+        login() {
+            this.$router.push({
+                name: 'AdminHome',
+            });
+        },
     },
 };
 </script>

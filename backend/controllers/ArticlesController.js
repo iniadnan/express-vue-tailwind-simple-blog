@@ -12,7 +12,7 @@ export const showAllArticle = (req, res) => {
   });
 }
 
-// GET ALL ARTICLE
+// GET SINGLE ARTICLE
 export const showSingleArticle = (req, res) => {
   getSingleArticle(req.params.slug, (err, results) => {
     if (err) {
