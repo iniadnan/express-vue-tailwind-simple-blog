@@ -9,4 +9,8 @@ export default {
     createUser(data) {
         return apiClient.post('/users/create', data);
     },
+    // DELETE SINGLE ARTICLE
+    deleteSingleUser(id) {
+        return apiClient.delete('/users/single/' + id);
+    },
 };

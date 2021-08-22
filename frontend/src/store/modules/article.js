@@ -6,6 +6,7 @@ export const state = {
     articles: [],
     article: {},
     created: 0,
+    deleted: '',
 };
 export const mutations = {
     SET_ALL_ARTICLE(state, data) {
@@ -16,6 +17,9 @@ export const mutations = {
     },
     SET_CREATED(state, data) {
         state.created = data;
+    },
+    SET_DELETED(state, data) {
+        state.deleted = data;
     },
 };
 export const actions = {
@@ -28,14 +32,20 @@ export const actions = {
                 console.log('Something Wrong: ' + error);
             });
     },
-    getSingleArticle({ commit }, slug) {
-        return ArticlesService.getSingleArticle(slug)
-            .then((response) => {
-                commit('SET_SINGLE_ARTICLE', response.data[0]);
-            })
-            .catch((error) => {
-                console.log('Something Wrong: ' + error);
-            });
+    getSingleArticle({ commit, getters }, slug) {
+        let article = getters.getArticleBySlug(slug);
+
+        if (article) {
+            commit('SET_SINGLE_ARTICLE', article);
+        } else {
+            return ArticlesService.getSingleArticle(slug)
+                .then((response) => {
+                    commit('SET_SINGLE_ARTICLE', response.data[0]);
+                })
+                .catch((error) => {
+                    console.log('Something Wrong: ' + error);
+                });
+        }
     },
     createArticle({ commit }, data) {
         return ArticlesService.createArticle(data)
@@ -46,5 +56,18 @@ export const actions = {
                 console.log('Something Wrong: ' + error);
             });
     },
+    deleteSingleArticle({ commit }, id) {
+        return ArticlesService.deleteSingleArticle(id)
+            .then(() => {
+                commit('SET_DELETED', id);
+            })
+            .catch((error) => {
+                console.log('Something Wrong: ' + error);
+            });
+    },
 };
-export const getters = {};
+export const getters = {
+    getArticleBySlug: (state) => (slug) => {
+        return state.articles.find((article) => article.slug === slug);
+    },
+};

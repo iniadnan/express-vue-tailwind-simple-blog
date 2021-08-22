@@ -1,5 +1,10 @@
 // Import All Model Users
-import { getAllArticle, getSingleArticle, insertArticle } from "../models/ArticlesModel.js";
+import {
+  getAllArticle,
+  getSingleArticle,
+  insertArticle,
+  deleteSingleArticle
+} from "../models/ArticlesModel.js";
 
 // GET ALL ARTICLE
 export const showAllArticle = (req, res) => {
@@ -10,7 +15,7 @@ export const showAllArticle = (req, res) => {
       res.json(results);
     }
   });
-}
+};
 
 // GET SINGLE ARTICLE
 export const showSingleArticle = (req, res) => {
@@ -21,7 +26,7 @@ export const showSingleArticle = (req, res) => {
       res.json(results);
     }
   });
-}
+};
 
 // CREATE NEW USERS
 export const createArticle = (req, res) => {
@@ -34,6 +39,17 @@ export const createArticle = (req, res) => {
     tags: req.body.tags.trim(),
   };
   insertArticle(data, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(results);
+    }
+  });
+};
+
+// DELETE SINGLE ARTICLE
+export const deleteOneArticle = (req, res) => {
+  deleteSingleArticle(req.params.id, (err, results) => {
     if (err) {
       res.send(err);
     } else {

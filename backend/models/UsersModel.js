@@ -1,7 +1,7 @@
 import db from "../configs/database.js";
 import { v4 as uuidv4 } from "uuid";
 
-// GET ALL ARTICLE
+// GET ALL USERS
 export const getAllUser = (result) => {
   db.query(
     "SELECT * FROM users ORDER BY created_at",
@@ -31,4 +31,15 @@ export const insertUser = (data, result) => {
       }
     }
   );
+};
+
+export const deleteSingleUser = (id, result) => {
+  db.query("DELETE FROM users WHERE id = ?", [id], (err, results) => {
+    if (err) {
+      console.log(err);
+      result(err, null);
+    } else {
+      result(null, results);
+    }
+  });
 };

@@ -1,5 +1,5 @@
 // Import All Model Users
-import { getAllUser, insertUser } from "../models/UsersModel.js";
+import { getAllUser, insertUser, deleteSingleUser } from "../models/UsersModel.js";
 let letterNumber = /^[0-9a-zA-Z]+$/;
 let mailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
@@ -30,6 +30,18 @@ export const createUsers = (req, res) => {
     return res.json(null);
   }
   insertUser(data, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(results);
+    }
+  });
+};
+
+
+// DELETE SINGLE ARTICLE
+export const deleteOneUser = (req, res) => {
+  deleteSingleUser(req.params.id, (err, results) => {
     if (err) {
       res.send(err);
     } else {

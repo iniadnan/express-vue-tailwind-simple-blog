@@ -5,6 +5,7 @@ export const namespaced = true;
 export const state = {
     users: [],
     created: 0,
+    deleted: '',
 };
 export const mutations = {
     SET_ALL_USER(state, data) {
@@ -12,6 +13,9 @@ export const mutations = {
     },
     SET_CREATED(state, data) {
         state.created = data;
+    },
+    SET_DELETED(state, data) {
+        state.deleted = data;
     },
 };
 export const actions = {
@@ -28,6 +32,15 @@ export const actions = {
         return UsersService.createUser(data)
             .then(() => {
                 commit('SET_CREATED', 1);
+            })
+            .catch((error) => {
+                console.log('Something Wrong: ' + error);
+            });
+    },
+    deleteSingleUser({ commit }, id) {
+        return UsersService.deleteSingleUser(id)
+            .then(() => {
+                commit('SET_DELETED', id);
             })
             .catch((error) => {
                 console.log('Something Wrong: ' + error);

@@ -13,4 +13,8 @@ export default {
     createArticle(data) {
         return apiClient.post('/articles/create', data);
     },
+    // DELETE SINGLE ARTICLE
+    deleteSingleArticle(id) {
+        return apiClient.delete('/articles/single/' + id);
+    },
 };
