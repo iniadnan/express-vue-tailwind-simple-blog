@@ -15,7 +15,7 @@
                                 w-full
                                 bg-white
                                 border border-gray-500
-                                text-base text-gray-500
+                                text-base text-gray-700
                                 rounded
                                 py-3
                                 px-5
@@ -39,7 +39,7 @@
                                 w-full
                                 bg-white
                                 border border-gray-500
-                                text-base text-gray-500
+                                text-base text-gray-700
                                 rounded
                                 py-3
                                 px-5
@@ -63,7 +63,7 @@
                                 w-full
                                 bg-white
                                 border border-gray-500
-                                text-base text-gray-500
+                                text-base text-gray-700
                                 rounded
                                 py-3
                                 px-5
@@ -87,7 +87,7 @@
                                 w-full
                                 bg-white
                                 border border-gray-500
-                                text-base text-gray-500
+                                text-base text-gray-700
                                 rounded
                                 py-3
                                 px-5
@@ -111,7 +111,7 @@
                                 w-full
                                 bg-white
                                 border border-gray-500
-                                text-base text-gray-500
+                                text-base text-gray-700
                                 rounded
                                 py-3
                                 px-5
@@ -123,7 +123,7 @@
                             v-model="dataArticle.description"
                         ></textarea>
                     </div>
-                    <div class="mb-8">
+                    <div class="mb-5">
                         <label
                             class="font-medium text-lg text-gray-800"
                             for="tags"
@@ -135,7 +135,7 @@
                                 w-full
                                 bg-white
                                 border border-gray-500
-                                text-base text-gray-500
+                                text-base text-gray-700
                                 rounded
                                 py-3
                                 px-5
@@ -145,6 +145,30 @@
                             id="tags"
                             placeholder="Tags"
                             v-model="dataArticle.tags"
+                        />
+                    </div>
+                    <div class="mb-8">
+                        <label
+                            class="font-medium text-lg text-gray-800"
+                            for="location"
+                            >Location</label
+                        >
+                        <input
+                            class="
+                                block
+                                w-full
+                                bg-white
+                                border border-gray-500
+                                text-base text-gray-700
+                                rounded
+                                py-3
+                                px-5
+                                mt-2
+                            "
+                            type="text"
+                            id="location"
+                            placeholder="Location"
+                            v-model="dataArticle.location"
                         />
                     </div>
                     <div>
@@ -182,6 +206,7 @@ export default {
                 slug: '',
                 description: '',
                 tags: '',
+                location: '',
             },
         };
     },
@@ -191,7 +216,7 @@ export default {
                 .dispatch('article/createArticle', this.dataArticle)
                 .then(() => {
                     this.$router.push({
-                        name: 'Login',
+                        name: 'AdminListArticle',
                     });
                 })
                 .catch((error) => {

@@ -114,7 +114,10 @@
                             >
                                 <router-link
                                     class="text-yellow-500 pr-1"
-                                    :to="{ name: 'AdminAddArticle' }"
+                                    :to="{
+                                        name: 'AdminEditArticle',
+                                        params: { slug: article.slug },
+                                    }"
                                 >
                                     <svg
                                         class="w-6 h-6"

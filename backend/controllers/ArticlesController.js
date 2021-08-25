@@ -3,6 +3,7 @@ import {
   getAllArticle,
   getSingleArticle,
   insertArticle,
+  updateArticleById,
   deleteSingleArticle
 } from "../models/ArticlesModel.js";
 
@@ -28,7 +29,7 @@ export const showSingleArticle = (req, res) => {
   });
 };
 
-// CREATE NEW USERS
+// CREATE NEW ARTICLE
 export const createArticle = (req, res) => {
   const data = {
     author: req.body.author.trim(),
@@ -37,8 +38,30 @@ export const createArticle = (req, res) => {
     slug: req.body.slug.trim(),
     description: req.body.description.trim(),
     tags: req.body.tags.trim(),
+    location: req.body.location.trim(),
   };
   insertArticle(data, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(results);
+    }
+  });
+};
+
+// UPDATE ARTICLE
+export const updateArticle = (req, res) => {
+  const data = {
+    id: req.body.id.trim(),
+    author: req.body.author.trim(),
+    title: req.body.title.trim(),
+    category: req.body.category.trim(),
+    slug: req.body.slug.trim(),
+    description: req.body.description.trim(),
+    tags: req.body.tags.trim(),
+    location: req.body.location.trim(),
+  };
+  updateArticleById(data, (err, results) => {
     if (err) {
       res.send(err);
     } else {

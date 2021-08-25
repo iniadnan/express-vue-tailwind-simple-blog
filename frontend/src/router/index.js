@@ -7,6 +7,8 @@ import AdminHome from '@/views/admin/AdminHome.vue';
 import AdminListArticle from '@/views/admin/AdminListArticle.vue';
 import AdminListUser from '@/views/admin/AdminListUser.vue';
 import AdminAddArticle from '@/views/admin/AdminAddArticle.vue';
+import AdminEditArticle from '@/views/admin/AdminEditArticle.vue';
+import AdminEditUser from '@/views/admin/AdminEditUser.vue';
 
 const routes = [
     {
@@ -49,6 +51,18 @@ const routes = [
         path: '/admin/add-article',
         name: 'AdminAddArticle',
         component: AdminAddArticle,
+    },
+    {
+        path: '/admin/edit-article/:slug',
+        name: 'AdminEditArticle',
+        component: AdminEditArticle,
+        props: true,
+    },
+    {
+        path: '/admin/edit-user/:id',
+        name: 'AdminEditUser',
+        component: AdminEditUser,
+        props: true,
     },
 ];
 

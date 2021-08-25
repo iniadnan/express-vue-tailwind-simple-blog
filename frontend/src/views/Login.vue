@@ -9,7 +9,7 @@
                             for="username"
                             >Username</label
                         >
-                        <div class="w-full relative text-gray-500 mt-2">
+                        <div class="w-full relative text-gray-700 mt-2">
                             <svg
                                 class="
                                     w-5
@@ -37,7 +37,7 @@
                                     w-full
                                     bg-white
                                     border border-gray-500
-                                    text-base text-gray-500
+                                    text-base text-gray-700
                                     rounded
                                     py-3
                                     px-12
@@ -54,7 +54,7 @@
                             for="password"
                             >Password</label
                         >
-                        <div class="w-full relative text-gray-500 mt-2">
+                        <div class="w-full relative text-gray-700 mt-2">
                             <svg
                                 class="
                                     w-5
@@ -82,7 +82,7 @@
                                     w-full
                                     bg-white
                                     border border-gray-500
-                                    text-base text-gray-500
+                                    text-base text-gray-700
                                     rounded
                                     py-3
                                     px-12

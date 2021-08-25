@@ -39,7 +39,7 @@
                         <div class="flex items-center">
                             <img
                                 class="h-8 w-8 object-cover rounded-full mr-2"
-                                :src="getImage('users', 'iniadnan.png')"
+                                :src="getImage(article.picture)"
                                 :alt="article.author"
                             />
                             <strong
@@ -53,11 +53,11 @@
                     </div>
                 </section>
                 <div class="w-full py-12">
-                    <img
+                    <!-- <img
                         class="w-full object-cover rounded"
                         :src="getImage('articles', 'article-4.jpg')"
                         :alt="article.title"
-                    />
+                    /> -->
                 </div>
                 <article class="px-16">
                     <p class="text-base text-gray-800">
@@ -83,8 +83,12 @@ export default {
         this.$store.dispatch('article/getSingleArticle', this.slug);
     },
     methods: {
-        getImage(path, img) {
-            return require(`@/assets/images/${path}/${img}`);
+        getImage(img) {
+            let imgShow =
+                img == null
+                    ? 'https://avatars.dicebear.com/api/avataaars/fbi.svg'
+                    : `http://localhost:4500/images/users/${img}`;
+            return imgShow;
         },
         reWriteDate() {
             const date = new Date(this.article.created_at);

@@ -6,6 +6,7 @@ export const state = {
     articles: [],
     article: {},
     created: 0,
+    updated: 0,
     deleted: '',
 };
 export const mutations = {
@@ -17,6 +18,9 @@ export const mutations = {
     },
     SET_CREATED(state, data) {
         state.created = data;
+    },
+    SET_UPDATED(state, data) {
+        state.updated = data;
     },
     SET_DELETED(state, data) {
         state.deleted = data;
@@ -51,6 +55,15 @@ export const actions = {
         return ArticlesService.createArticle(data)
             .then(() => {
                 commit('SET_CREATED', 1);
+            })
+            .catch((error) => {
+                console.log('Something Wrong: ' + error);
+            });
+    },
+    updateArticle({ commit }, data) {
+        return ArticlesService.updateArticle(data)
+            .then(() => {
+                commit('SET_UPDATED', 1);
             })
             .catch((error) => {
                 console.log('Something Wrong: ' + error);

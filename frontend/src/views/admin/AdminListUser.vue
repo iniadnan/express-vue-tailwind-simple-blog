@@ -60,7 +60,7 @@
                                         rounded-full
                                         mx-auto
                                     "
-                                    :src="getImage('users', 'iniadnan.png')"
+                                    :src="getImage(user.picture)"
                                     :alt="user.username"
                                 />
                             </td>
@@ -94,7 +94,10 @@
                             >
                                 <router-link
                                     class="text-yellow-500 pr-1"
-                                    :to="{ name: 'AdminAddArticle' }"
+                                    :to="{
+                                        name: 'AdminEditUser',
+                                        params: { id: user.id },
+                                    }"
                                 >
                                     <svg
                                         class="w-6 h-6"
@@ -200,8 +203,12 @@ export default {
         }),
     },
     methods: {
-        getImage(path, img) {
-            return require(`@/assets/images/${path}/${img}`);
+        getImage(img) {
+            let imgShow =
+                img == null
+                    ? 'https://avatars.dicebear.com/api/avataaars/fbi.svg'
+                    : `http://localhost:4500/images/users/${img}`;
+            return imgShow;
         },
         deleteUser(id) {
             this.$store
