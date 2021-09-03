@@ -3,7 +3,11 @@ import apiClient from '@/services.js';
 export default {
     // GET ALL USER
     getAllUser() {
-        return apiClient.get('/users/all');
+        return apiClient.get('/users/all', {
+            headers: {
+                Authorization: apiClient.defaults.headers.common['Authorization'],
+            },
+        });
     },
     // GET SINGLE USER
     getSingleUser(id) {
@@ -15,11 +19,14 @@ export default {
     },
     // UPDATE USER
     updateUser(data) {
-        console.log(data);
         return apiClient.put('/users/update', data);
     },
     // DELETE SINGLE USER
     deleteSingleUser(id) {
         return apiClient.delete('/users/single/' + id);
+    },
+    // LOGIN USER
+    loginUser(credentials) {
+        return apiClient.post('/users/login', credentials);
     },
 };

@@ -215,7 +215,7 @@ export default {
         };
     },
     created() {
-        this.$store.dispatch('article/getAllArticle');
+        this.$store.dispatch('article/getAllAdminArticle');
     },
     computed: {
         ...mapState({

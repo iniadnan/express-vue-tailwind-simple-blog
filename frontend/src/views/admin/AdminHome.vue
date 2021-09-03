@@ -50,7 +50,7 @@ import { mapState } from 'vuex';
 export default {
     name: 'AdminHome',
     created() {
-        this.$store.dispatch('article/getAllArticle');
+        this.$store.dispatch('article/getAllAdminArticle');
         this.$store.dispatch('user/getAllUser');
     },
     computed: {

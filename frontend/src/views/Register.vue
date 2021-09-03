@@ -3,6 +3,25 @@
         <div class="container">
             <div class="w-5/12 mx-auto flex flex-wrap py-12">
                 <form class="w-full block" @submit.prevent="createUser">
+                    <template v-if="Object.keys(error).length > 0">
+                        <div
+                            class="
+                                h-10
+                                w-full
+                                flex
+                                items-center
+                                justify-center
+                                bg-red-400
+                                font-medium
+                                text-sm text-white
+                                mb-5
+                                rounded
+                            "
+                        >
+                            Registration Failed:
+                            <strong class="pl-2">"{{ error.message }}"</strong>
+                        </div>
+                    </template>
                     <div class="mb-5">
                         <label
                             class="font-medium text-lg text-gray-800"
@@ -172,6 +191,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
     name: 'Register',
     data() {
@@ -183,14 +203,24 @@ export default {
             },
         };
     },
+    computed: {
+        ...mapState({
+            created: (state) => state.user.created,
+            error: (state) => state.user.error,
+        }),
+    },
     methods: {
         createUser() {
             this.$store
                 .dispatch('user/createUser', this.dataUser)
                 .then(() => {
-                    this.$router.push({
-                        name: 'Login',
-                    });
+                    if (this.created === 1) {
+                        this.$router.push({
+                            name: 'Login',
+                        });
+                        this.$store.commit('user/RESET_CREATED');
+                    }
+                    return;
                 })
                 .catch((error) => {
                     console.log('Something Wrong: ' + error);

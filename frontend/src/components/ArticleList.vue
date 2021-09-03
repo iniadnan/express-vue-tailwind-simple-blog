@@ -16,7 +16,7 @@
             <div class="w-full">
                 <img
                     class="w-full h-96 object-cover rounded-md"
-                    :src="getImage('article-3.jpg')"
+                    :src="getImage(article.image)"
                     alt="Title"
                 />
             </div>
@@ -79,7 +79,11 @@ export default {
     },
     methods: {
         getImage(img) {
-            return require(`@/assets/images/articles/${img}`);
+            let imgShow =
+                img == null
+                    ? 'https://avatars.dicebear.com/api/avataaars/fbi.svg'
+                    : `http://localhost:4500/images/articles/${img}`;
+            return imgShow;
         },
         sliceString(val) {
             return val.slice(0, 200);

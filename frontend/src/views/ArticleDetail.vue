@@ -39,7 +39,7 @@
                         <div class="flex items-center">
                             <img
                                 class="h-8 w-8 object-cover rounded-full mr-2"
-                                :src="getImage(article.picture)"
+                                :src="getImage('users', article.picture)"
                                 :alt="article.author"
                             />
                             <strong
@@ -53,11 +53,11 @@
                     </div>
                 </section>
                 <div class="w-full py-12">
-                    <!-- <img
+                    <img
                         class="w-full object-cover rounded"
-                        :src="getImage('articles', 'article-4.jpg')"
+                        :src="getImage('articles', article.image)"
                         :alt="article.title"
-                    /> -->
+                    />
                 </div>
                 <article class="px-16">
                     <p class="text-base text-gray-800">
@@ -83,11 +83,11 @@ export default {
         this.$store.dispatch('article/getSingleArticle', this.slug);
     },
     methods: {
-        getImage(img) {
+        getImage(path ,img) {
             let imgShow =
                 img == null
                     ? 'https://avatars.dicebear.com/api/avataaars/fbi.svg'
-                    : `http://localhost:4500/images/users/${img}`;
+                    : `http://localhost:4500/images/${path}/${img}`;
             return imgShow;
         },
         reWriteDate() {

@@ -3,6 +3,24 @@
         <div class="container">
             <div class="w-5/12 mx-auto flex flex-wrap py-12">
                 <form class="w-full block" @submit.prevent="login">
+                    <template v-if="Object.keys(error).length > 0">
+                        <div
+                            class="
+                                h-10
+                                w-full
+                                flex
+                                items-center
+                                justify-center
+                                bg-red-400
+                                font-medium
+                                text-sm text-white
+                                mb-5
+                                rounded
+                            "
+                        >
+                            Username Or Password Wrong
+                        </div>
+                    </template>
                     <div class="mb-5">
                         <label
                             class="font-medium text-lg text-gray-800"
@@ -127,6 +145,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
     name: 'Login',
     data() {
@@ -137,11 +156,41 @@ export default {
             },
         };
     },
-    methods: {
-        login() {
+    created() {
+        if (this.session !== null) {
             this.$router.push({
                 name: 'AdminHome',
             });
+        }
+    },
+    computed: {
+        ...mapState({
+            session: (state) => state.user.session,
+            error: (state) => state.user.error,
+        }),
+    },
+    methods: {
+        login() {
+            const formData = new FormData();
+            formData.append('username', this.dataUser.username);
+            formData.append('password', this.dataUser.password);
+            this.$store
+                .dispatch('user/login', formData)
+                .then(() => {
+                    if (this.session == null) {
+                        this.dataUser.password = '';
+                        this.$router.push({
+                            name: 'Login',
+                        });
+                    } else {
+                        this.$router.push({
+                            name: 'AdminHome',
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.log('Something Error: ' + error);
+                });
         },
     },
 };

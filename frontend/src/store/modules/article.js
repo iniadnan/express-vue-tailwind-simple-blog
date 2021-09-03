@@ -36,6 +36,15 @@ export const actions = {
                 console.log('Something Wrong: ' + error);
             });
     },
+    getAllAdminArticle({ commit }) {
+        return ArticlesService.getAllAdminArticle()
+            .then((response) => {
+                commit('SET_ALL_ARTICLE', response.data);
+            })
+            .catch((error) => {
+                console.log('Something Wrong: ' + error);
+            });
+    },
     getSingleArticle({ commit, getters }, slug) {
         let article = getters.getArticleBySlug(slug);
 
@@ -43,6 +52,21 @@ export const actions = {
             commit('SET_SINGLE_ARTICLE', article);
         } else {
             return ArticlesService.getSingleArticle(slug)
+                .then((response) => {
+                    commit('SET_SINGLE_ARTICLE', response.data[0]);
+                })
+                .catch((error) => {
+                    console.log('Something Wrong: ' + error);
+                });
+        }
+    },
+    getSingleAdminArticle({ commit, getters }, slug) {
+        let article = getters.getArticleBySlug(slug);
+
+        if (article) {
+            commit('SET_SINGLE_ARTICLE', article);
+        } else {
+            return ArticlesService.getSingleAdminArticle(slug)
                 .then((response) => {
                     commit('SET_SINGLE_ARTICLE', response.data[0]);
                 })

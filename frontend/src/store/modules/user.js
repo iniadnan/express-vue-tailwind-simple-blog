@@ -1,3 +1,4 @@
+import apiClient from '@/services.js';
 import UsersService from '@/services/UsersService';
 
 export const namespaced = true;
@@ -7,7 +8,9 @@ export const state = {
     user: {},
     created: 0,
     updated: 0,
-    deleted: '',
+    deleted: [],
+    session: null,
+    error: {},
 };
 export const mutations = {
     SET_ALL_USER(state, data) {
@@ -25,6 +28,30 @@ export const mutations = {
     SET_DELETED(state, data) {
         state.deleted = data;
     },
+    SET_USER_DATA(state, userData) {
+        const data = userData.length > 0 ? userData[0] : userData;
+        localStorage.setItem('user', JSON.stringify(data));
+        apiClient.defaults.headers.common[
+            'Authorization'
+        ] = `Bearer ${data.token}`;
+        state.session = data;
+    },
+    LOGOUT() {
+        localStorage.removeItem('user');
+        location.reload();
+    },
+    RESET_CREATED(state) {
+        state.created = 0;
+    },
+    RESET_UPDATED(state) {
+        state.updated = 0;
+    },
+    RESET_DELETED(state) {
+        state.deleted = [];
+    },
+    RESET_ERROR(state) {
+        state.error = {};
+    },
 };
 export const actions = {
     getAllUser({ commit }) {
@@ -33,7 +60,7 @@ export const actions = {
                 commit('SET_ALL_USER', response.data);
             })
             .catch((error) => {
-                console.log('Something Wrong: ' + error);
+                console.log('Something Wrongs: ' + error);
             });
     },
     getSingleUser({ commit, getters }, id) {
@@ -51,10 +78,19 @@ export const actions = {
                 });
         }
     },
-    createUser({ commit }, data) {
+    createUser({ commit, state }, data) {
         return UsersService.createUser(data)
-            .then(() => {
-                commit('SET_CREATED', 1);
+            .then((response) => {
+                if (response.data.errno) {
+                    state.error = {
+                        code: response.data.code,
+                        errno: response.data.errno,
+                        message: response.data.sqlMessage,
+                    };
+                    commit('SET_CREATED', 0);
+                } else {
+                    commit('SET_CREATED', 1);
+                }
             })
             .catch((error) => {
                 console.log('Something Wrong: ' + error);
@@ -77,6 +113,20 @@ export const actions = {
             .catch((error) => {
                 console.log('Something Wrong: ' + error);
             });
+    },
+    login({ commit, state }, credentials) {
+        return UsersService.loginUser(credentials).then(({ data }) => {
+            if (data != null || data != undefined) {
+                commit('SET_USER_DATA', data);
+            } else {
+                state.error = {
+                    status: 'NULL',
+                };
+            }
+        });
+    },
+    logout({ commit }) {
+        commit('LOGOUT');
     },
 };
 export const getters = {

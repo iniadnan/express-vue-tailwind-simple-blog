@@ -1,3 +1,5 @@
+import jwt from "jsonwebtoken";
+
 // Import All Model Users
 import {
   getAllUser,
@@ -5,7 +7,9 @@ import {
   insertUser,
   updateUserById,
   deleteSingleUser,
+  checkLoginUser,
 } from "../models/UsersModel.js";
+
 let letterNumber = /^[0-9a-zA-Z]+$/;
 let mailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 let dateNow = new Date();
@@ -34,22 +38,36 @@ let today =
 
 // GET ALL USER
 export const showAllUser = (req, res) => {
-  getAllUser((err, results) => {
+  const bearerHeader = req.headers["authorization"] == undefined ? res.sendStatus(401) : req.headers["authorization"].split(" ");
+  jwt.verify(bearerHeader[1], "the_secret_key", (err) => {
     if (err) {
-      res.send(err);
+      res.sendStatus(401);
     } else {
-      res.json(results);
+      getAllUser((err, results) => {
+        if (err) {
+          res.send(err);
+        } else {
+          res.json(results);
+        }
+      });
     }
   });
 };
 
 // GET SINGLE USER
 export const showSingleUser = (req, res) => {
-  getSingleUser(req.params.id, (err, results) => {
+  const bearerHeader = req.headers["authorization"] == undefined ? res.sendStatus(401) : req.headers["authorization"].split(" ");
+  jwt.verify(bearerHeader[1], "the_secret_key", (err) => {
     if (err) {
-      res.send(err);
+      res.sendStatus(401);
     } else {
-      res.json(results);
+      getSingleUser(req.params.id, (err, results) => {
+        if (err) {
+          res.send(err);
+        } else {
+          res.json(results);
+        }
+      });
     }
   });
 };
@@ -80,26 +98,58 @@ export const createUser = (req, res) => {
 
 // UPDATE USER
 export const updateUser = (req, res) => {
-  const data = {
-    id: req.body.id.trim(),
-    email: req.body.email.trim(),
-    username: req.body.username.trim(),
-    password: req.body.password.trim(),
-    picture: req.files,
-    updated: today,
-  };
-  updateUserById(data, (err, results) => {
+  const bearerHeader = req.headers["authorization"] == undefined ? res.sendStatus(401) : req.headers["authorization"].split(" ");
+  jwt.verify(bearerHeader[1], "the_secret_key", (err) => {
     if (err) {
-      res.send(err);
+      res.sendStatus(401);
     } else {
-      res.json(results);
+      const data = {
+        id: req.body.id.trim(),
+        email: req.body.email.trim(),
+        username: req.body.username.trim(),
+        oldPassword: req.body.oldPassword == '' ? '' : req.body.oldPassword.trim(),
+        newPassword: req.body.newPassword == '' ? '' : req.body.newPassword.trim(),
+        confirmPassword: req.body.confirmPassword == '' ? '' : req.body.confirmPassword.trim(),
+        picture: req.files == null ? null : req.files,
+        updated: today,
+      };
+      updateUserById(data, (err, results) => {
+        if (err) {
+          res.send(err);
+        } else {
+          res.json(results);
+        }
+      });
     }
   });
 };
 
 // DELETE SINGLE USER
 export const deleteOneUser = (req, res) => {
-  deleteSingleUser(req.params.id, (err, results) => {
+  const bearerHeader = req.headers["authorization"] == undefined ? res.sendStatus(401) : req.headers["authorization"].split(" ");
+  jwt.verify(bearerHeader[1], "the_secret_key", (err) => {
+    if (err) {
+      res.sendStatus(401);
+    } else {
+      deleteSingleUser(req.params.id, (err, results) => {
+        if (err) {
+          res.send(err);
+        } else {
+          res.json(results);
+        }
+      });
+    }
+  });
+
+};
+
+// AUTH: LOGIN USER
+export const loginUser = (req, res) => {
+  const data = {
+    username: req.body.username.trim(),
+    password: req.body.password.trim(),
+  };
+  checkLoginUser(data, (err, results) => {
     if (err) {
       res.send(err);
     } else {

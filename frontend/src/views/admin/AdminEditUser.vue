@@ -158,11 +158,11 @@
                             v-model="user.username"
                         />
                     </div>
-                    <div class="mb-8">
+                    <div class="mb-5">
                         <label
                             class="font-medium text-lg text-gray-800"
-                            for="password"
-                            >Password</label
+                            for="oldPassword"
+                            >Old Password</label
                         >
                         <input
                             class="
@@ -177,9 +177,57 @@
                                 mt-2
                             "
                             type="password"
-                            id="password"
-                            placeholder="password"
-                            v-model="user.password"
+                            id="oldPassword"
+                            placeholder="Old Password"
+                            v-model="password.old"
+                        />
+                    </div>
+                    <div class="mb-5">
+                        <label
+                            class="font-medium text-lg text-gray-800"
+                            for="newPassword"
+                            >New Password</label
+                        >
+                        <input
+                            class="
+                                block
+                                w-full
+                                bg-white
+                                border border-gray-500
+                                text-base text-gray-700
+                                rounded
+                                py-3
+                                px-5
+                                mt-2
+                            "
+                            type="password"
+                            id="newPassword"
+                            placeholder="New Password"
+                            v-model="password.new"
+                        />
+                    </div>
+                    <div class="mb-8">
+                        <label
+                            class="font-medium text-lg text-gray-800"
+                            for="confirmPassword"
+                            >Confirm Password</label
+                        >
+                        <input
+                            class="
+                                block
+                                w-full
+                                bg-white
+                                border border-gray-500
+                                text-base text-gray-700
+                                rounded
+                                py-3
+                                px-5
+                                mt-2
+                            "
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="Confirm Password"
+                            v-model="password.confirm"
                         />
                     </div>
                     <div>
@@ -218,6 +266,11 @@ export default {
     data() {
         return {
             previewImg: '',
+            password: {
+                old: '',
+                new: '',
+                confirm: '',
+            },
         };
     },
     created() {
@@ -241,11 +294,23 @@ export default {
             this.previewImg = URL.createObjectURL(event.target.files[0]);
         },
         updateUser() {
+            if (this.password.new != '' && this.password.confirm != '') {
+                if (this.password.old == '') {
+                    alert('Please insert old password');
+                    return false;
+                }
+                if (this.password.new !== this.password.confirm) {
+                    alert('Password not same');
+                    return false;
+                }
+            }
             const formData = new FormData();
             formData.append('id', this.user.id);
             formData.append('email', this.user.email);
             formData.append('username', this.user.username);
-            formData.append('password', this.user.password);
+            formData.append('oldPassword', this.password.old);
+            formData.append('newPassword', this.password.new);
+            formData.append('confirmPassword', this.password.confirm);
             formData.append('file', this.user.picture);
             this.$store
                 .dispatch('user/updateUser', formData)
