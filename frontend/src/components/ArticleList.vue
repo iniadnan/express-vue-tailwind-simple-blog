@@ -6,7 +6,8 @@
                 block
                 relative
                 rounded-md
-                p-8
+                p-4
+                md:p-8
                 mb-5
                 group
                 hover:shadow-md
@@ -15,24 +16,35 @@
         >
             <div class="w-full">
                 <img
-                    class="w-full h-96 object-cover rounded-md"
+                    class="w-full h-72 md:h-80 lg:h-96 object-cover rounded-md"
                     :src="getImage(article.image)"
                     alt="Title"
                 />
             </div>
-            <section class="pt-6 px-8">
+            <section class="pt-4 md:pt-6 px-5 md:px-8">
                 <h2
                     class="
                         font-semibold
-                        text-2xl text-gray-800
+                        text-xl
+                        md:text-2xl
+                        text-gray-800
                         tracking-wide
-                        mb-5
+                        mb-4
+                        md:mb-5
                         group-hover:text-red-400
                     "
                 >
                     {{ article.title }}
                 </h2>
-                <p class="text-lg text-gray-700 tracking-wide mb-6">
+                <p
+                    class="
+                        text-base
+                        md:text-lg
+                        text-gray-700
+                        tracking-wide
+                        mb-6
+                    "
+                >
                     {{ sliceString(article.description) }}...
                 </p>
                 <div class="flex items-center">

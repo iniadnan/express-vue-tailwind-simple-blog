@@ -2,7 +2,6 @@ import db from "../configs/database.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import { v4 as uuidv4 } from "uuid";
-import jwt from "jsonwebtoken";
 
 // MAKE DIRNAME BECAUSE USE TYPE MODULE
 const __filename = fileURLToPath(import.meta.url);
@@ -21,7 +20,7 @@ function randomSN(length) {
 
 // GET ALL ARTICLE
 export const getAllArticle = (result) => {
-  db.query("SELECT * FROM articles ORDER BY created_at", (err, results) => {
+  db.query("SELECT * FROM articles ORDER BY created_at DESC", (err, results) => {
     if (err) {
       console.log(err);
       result(err, null);
@@ -46,27 +45,63 @@ export const getSingleArticle = (slug, result) => {
 // CREATE NEW ARTICLE
 export const insertArticle = (data, result) => {
   data.id = uuidv4();
-  db.query(
-    "INSERT INTO articles (id, author, title, category, slug, description, tags, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-    [
-      data.id,
-      data.author,
-      data.title,
-      data.category,
-      data.slug,
-      data.description,
-      data.tags,
-      data.location,
-    ],
-    (err, results) => {
-      if (err) {
-        console.log(err);
-        result(err, null);
-      } else {
-        result(null, results);
+  const fileImage = data.image == null ? null : data.image.file;
+  if (fileImage != null) {
+    fileImage.name = fileImage.mimetype.split("/")[1] == "jpeg" ? randomSN(32) + ".jpg" : randomSN(32) + "." + fileImage.mimetype.split("/")[1];
+    fileImage.mv(
+      `${path.join(__dirname, "../public")}/images/articles/${fileImage.name}`,
+      function (err) {
+        if (err) {
+          console.log(err);
+          result(err, null);
+        }
       }
-    }
-  );
+    );
+    db.query(
+      "INSERT INTO articles (id, author, title, category, slug, description, tags, location, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [
+        data.id,
+        data.author,
+        data.title,
+        data.category,
+        data.slug,
+        data.description,
+        data.tags,
+        data.location,
+        fileImage.name
+      ],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          result(err, null);
+        } else {
+          result(null, results);
+        }
+      }
+    );
+  } else {
+    db.query(
+      "INSERT INTO articles (id, author, title, category, slug, description, tags, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      [
+        data.id,
+        data.author,
+        data.title,
+        data.category,
+        data.slug,
+        data.description,
+        data.tags,
+        data.location,
+      ],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          result(err, null);
+        } else {
+          result(null, results);
+        }
+      }
+    );
+  }
 };
 
 // UPDATE ARTICLE

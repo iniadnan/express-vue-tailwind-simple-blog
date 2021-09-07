@@ -39,7 +39,7 @@ let today =
 // GET ALL USER
 export const showAllUser = (req, res) => {
   const bearerHeader = req.headers["authorization"] == undefined ? res.sendStatus(401) : req.headers["authorization"].split(" ");
-  jwt.verify(bearerHeader[1], "the_secret_key", (err) => {
+  jwt.verify(bearerHeader[1], process.env.TOKEN_SECRET, (err) => {
     if (err) {
       res.sendStatus(401);
     } else {
@@ -57,7 +57,7 @@ export const showAllUser = (req, res) => {
 // GET SINGLE USER
 export const showSingleUser = (req, res) => {
   const bearerHeader = req.headers["authorization"] == undefined ? res.sendStatus(401) : req.headers["authorization"].split(" ");
-  jwt.verify(bearerHeader[1], "the_secret_key", (err) => {
+  jwt.verify(bearerHeader[1], process.env.TOKEN_SECRET, (err) => {
     if (err) {
       res.sendStatus(401);
     } else {
@@ -75,8 +75,8 @@ export const showSingleUser = (req, res) => {
 // CREATE NEW USERS
 export const createUser = (req, res) => {
   const data = {
-    email: req.body.email.trim(),
-    username: req.body.username.trim(),
+    email: req.body.email.trim().toLowerCase(),
+    username: req.body.username.trim().toLowerCase(),
     password: req.body.password.trim(),
   };
   // SIMPLE VALIDATION
@@ -99,14 +99,14 @@ export const createUser = (req, res) => {
 // UPDATE USER
 export const updateUser = (req, res) => {
   const bearerHeader = req.headers["authorization"] == undefined ? res.sendStatus(401) : req.headers["authorization"].split(" ");
-  jwt.verify(bearerHeader[1], "the_secret_key", (err) => {
+  jwt.verify(bearerHeader[1], process.env.TOKEN_SECRET, (err) => {
     if (err) {
       res.sendStatus(401);
     } else {
       const data = {
         id: req.body.id.trim(),
-        email: req.body.email.trim(),
-        username: req.body.username.trim(),
+        email: req.body.email.trim().toLowerCase(),
+        username: req.body.username.trim().toLowerCase(),
         oldPassword: req.body.oldPassword == '' ? '' : req.body.oldPassword.trim(),
         newPassword: req.body.newPassword == '' ? '' : req.body.newPassword.trim(),
         confirmPassword: req.body.confirmPassword == '' ? '' : req.body.confirmPassword.trim(),
@@ -127,7 +127,7 @@ export const updateUser = (req, res) => {
 // DELETE SINGLE USER
 export const deleteOneUser = (req, res) => {
   const bearerHeader = req.headers["authorization"] == undefined ? res.sendStatus(401) : req.headers["authorization"].split(" ");
-  jwt.verify(bearerHeader[1], "the_secret_key", (err) => {
+  jwt.verify(bearerHeader[1], process.env.TOKEN_SECRET, (err) => {
     if (err) {
       res.sendStatus(401);
     } else {
@@ -146,7 +146,7 @@ export const deleteOneUser = (req, res) => {
 // AUTH: LOGIN USER
 export const loginUser = (req, res) => {
   const data = {
-    username: req.body.username.trim(),
+    username: req.body.username.trim().toLowerCase(),
     password: req.body.password.trim(),
   };
   checkLoginUser(data, (err, results) => {

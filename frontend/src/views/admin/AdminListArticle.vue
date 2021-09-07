@@ -1,7 +1,18 @@
 <template>
     <main class="min-h-screen">
         <div class="container">
-            <div class="w-8/12 mx-auto py-8">
+            <div
+                class="
+                    w-full
+                    md:w-10/12
+                    lg:w-8/12
+                    mx-auto
+                    py-8
+                    px-5
+                    md:px-0
+                    overflow-x-auto
+                "
+            >
                 <div class="mb-6">
                     <router-link
                         class="
@@ -76,6 +87,7 @@
                                     text-base text-gray-800
                                     py-4
                                     px-5
+                                    whitespace-nowrap
                                 "
                             >
                                 {{ article.title }}

@@ -3,12 +3,16 @@ import cors from "cors";
 import fileUpload from "express-fileupload";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import dotenv from 'dotenv'
 
 const app = express();
 const port = 4500;
 
 import articlesRoute from "./routes/ArticlesRoute.js";
 import usersRoute from "./routes/UsersRoute.js";
+
+dotenv.config();
+process.env.TOKEN_SECRET;
 
 // MAKE DIRNAME BECAUSE USE TYPE MODULE
 const __dirname = dirname(fileURLToPath(import.meta.url));

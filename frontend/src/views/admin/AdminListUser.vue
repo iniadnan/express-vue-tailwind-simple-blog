@@ -1,7 +1,18 @@
 <template>
     <main class="min-h-screen">
         <div class="container">
-            <div class="w-8/12 mx-auto py-8">
+            <div
+                class="
+                    w-full
+                    md:w-10/12
+                    lg:w-8/12
+                    mx-auto
+                    py-8
+                    px-5
+                    md:px-0
+                    overflow-x-auto
+                "
+            >
                 <table class="min-w-full bg-white rounded overflow-hidden">
                     <thead class="bg-blue-500">
                         <tr>

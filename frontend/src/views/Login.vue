@@ -1,7 +1,17 @@
 <template>
     <main>
         <div class="container">
-            <div class="w-5/12 mx-auto flex flex-wrap py-12">
+            <div
+                class="
+                    w-10/12
+                    md:8/12
+                    lg:w-6/12
+                    xl:w-5/12
+                    mx-auto
+                    flex flex-wrap
+                    py-12
+                "
+            >
                 <form class="w-full block" @submit.prevent="login">
                     <template v-if="Object.keys(error).length > 0">
                         <div
@@ -23,7 +33,12 @@
                     </template>
                     <div class="mb-5">
                         <label
-                            class="font-medium text-lg text-gray-800"
+                            class="
+                                font-medium
+                                text-base
+                                md:text-lg
+                                text-gray-800
+                            "
                             for="username"
                             >Username</label
                         >
@@ -56,6 +71,7 @@
                                     bg-white
                                     border border-gray-500
                                     text-base text-gray-700
+                                    lowercase
                                     rounded
                                     py-3
                                     px-12
@@ -68,7 +84,12 @@
                     </div>
                     <div class="mb-6">
                         <label
-                            class="font-medium text-lg text-gray-800"
+                            class="
+                                font-medium
+                                text-base
+                                md:text-lg
+                                text-gray-800
+                            "
                             for="password"
                             >Password</label
                         >
@@ -113,7 +134,12 @@
                     </div>
                     <div class="mb-6 text-right">
                         <router-link
-                            class="font-medium text-base text-gray-800"
+                            class="
+                                font-medium
+                                text-sm
+                                md:text-base
+                                text-gray-800
+                            "
                             :to="{ name: 'Register' }"
                             >Don't Have an Account?
                             <strong class="font-semibold text-blue-500"

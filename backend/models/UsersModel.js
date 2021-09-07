@@ -68,17 +68,21 @@ export const insertUser = (data, result) => {
 export const updateUserById = (data, result) => {
   function comparePassword() {
     return new Promise(function (resolve, reject) {
-      db.query("SELECT password FROM users WHERE id = ?", data.id, (err, results) => {
-        if (err) {
-          reject(err);
-        } else {
-          let compare = bcrypt.compareSync(
-            data.oldPassword,
-            results[0].password
-          );
-          resolve(compare);
+      db.query(
+        "SELECT password FROM users WHERE id = ?",
+        data.id,
+        (err, results) => {
+          if (err) {
+            reject(err);
+          } else {
+            let compare = bcrypt.compareSync(
+              data.oldPassword,
+              results[0].password
+            );
+            resolve(compare);
+          }
         }
-      });
+      );
     });
   }
 
@@ -201,7 +205,7 @@ export const deleteSingleUser = (id, result) => {
 // CHECK LOGIN USER
 export const checkLoginUser = (data, result) => {
   db.query(
-    "SELECT email, username, password FROM users WHERE username = ?",
+    "SELECT email, username, password, picture FROM users WHERE username = ?",
     data.username,
     (err, results) => {
       if (results.length > 0) {
@@ -211,7 +215,10 @@ export const checkLoginUser = (data, result) => {
           results[0].password
         );
         if (checkPassword) {
-          results[0].token = jwt.sign({ results }, "the_secret_key");
+          delete results[0].password;
+          results[0].random = randomSN(40);
+          results[0].token = jwt.sign({ results }, process.env.TOKEN_SECRET, { expiresIn: '4000s' });
+          delete results[0].random;
           result(null, results);
         } else {
           console.log(err);

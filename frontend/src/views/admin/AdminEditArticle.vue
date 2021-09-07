@@ -1,11 +1,28 @@
 <template>
     <main>
         <div class="container">
-            <div class="w-8/12 mx-auto flex flex-wrap pt-5 pb-10">
+            <div
+                class="
+                    w-full
+                    md:w-10/12
+                    lg:w-8/12
+                    mx-auto
+                    flex flex-wrap
+                    pt-5
+                    pb-10
+                    px-5
+                    md:px-0
+                "
+            >
                 <form class="w-full block" @submit.prevent="updateArticle">
                     <div class="mb-5">
                         <label
-                            class="font-medium text-lg text-gray-800"
+                            class="
+                                font-medium
+                                text-base
+                                md:text-lg
+                                text-gray-800
+                            "
                             for="author"
                             >Author</label
                         >
@@ -16,6 +33,7 @@
                                 bg-white
                                 border border-gray-500
                                 text-base text-gray-700
+                                lowercase
                                 rounded
                                 py-3
                                 px-5
@@ -29,7 +47,12 @@
                     </div>
                     <div class="mb-5">
                         <label
-                            class="font-medium text-lg text-gray-800"
+                            class="
+                                font-medium
+                                text-base
+                                md:text-lg
+                                text-gray-800
+                            "
                             for="title"
                             >Title</label
                         >
@@ -53,7 +76,12 @@
                     </div>
                     <div class="mb-5">
                         <label
-                            class="font-medium text-lg text-gray-800"
+                            class="
+                                font-medium
+                                text-base
+                                md:text-lg
+                                text-gray-800
+                            "
                             for="category"
                             >Category</label
                         >
@@ -64,6 +92,7 @@
                                 bg-white
                                 border border-gray-500
                                 text-base text-gray-700
+                                lowercase
                                 rounded
                                 py-3
                                 px-5
@@ -77,7 +106,12 @@
                     </div>
                     <div class="mb-5">
                         <label
-                            class="font-medium text-lg text-gray-800"
+                            class="
+                                font-medium
+                                text-base
+                                md:text-lg
+                                text-gray-800
+                            "
                             for="slug"
                             >Slug</label
                         >
@@ -88,6 +122,7 @@
                                 bg-white
                                 border border-gray-500
                                 text-base text-gray-700
+                                lowercase
                                 rounded
                                 py-3
                                 px-5
@@ -101,7 +136,12 @@
                     </div>
                     <div class="mb-5">
                         <label
-                            class="font-medium text-lg text-gray-800"
+                            class="
+                                font-medium
+                                text-base
+                                md:text-lg
+                                text-gray-800
+                            "
                             for="description"
                             >Description</label
                         >
@@ -125,7 +165,12 @@
                     </div>
                     <div class="mb-5">
                         <label
-                            class="font-medium text-lg text-gray-800"
+                            class="
+                                font-medium
+                                text-base
+                                md:text-lg
+                                text-gray-800
+                            "
                             for="tags"
                             >Tags</label
                         >
@@ -136,6 +181,7 @@
                                 bg-white
                                 border border-gray-500
                                 text-base text-gray-700
+                                lowercase
                                 rounded
                                 py-3
                                 px-5
@@ -149,7 +195,12 @@
                     </div>
                     <div class="mb-8">
                         <label
-                            class="font-medium text-lg text-gray-800"
+                            class="
+                                font-medium
+                                text-base
+                                md:text-lg
+                                text-gray-800
+                            "
                             for="location"
                             >Location</label
                         >

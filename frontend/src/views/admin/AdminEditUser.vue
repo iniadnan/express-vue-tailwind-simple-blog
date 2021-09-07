@@ -1,12 +1,32 @@
 <template>
     <main>
         <div class="container">
-            <div class="w-8/12 mx-auto flex flex-wrap pt-5 pb-10">
+            <div
+                class="
+                    w-full
+                    md:w-10/12
+                    lg:w-8/12
+                    mx-auto
+                    flex flex-wrap
+                    pt-5
+                    pb-10
+                    px-5
+                    md:px-0
+                "
+            >
                 <form class="w-full block" @submit.prevent="updateUser">
                     <div class="mb-8 text-center">
                         <template v-if="user.picture">
                             <div
-                                class="h-28 w-28 relative mx-auto rounded-full"
+                                class="
+                                    h-24
+                                    md:h-28
+                                    w-24
+                                    md:w-28
+                                    relative
+                                    mx-auto
+                                    rounded-full
+                                "
                             >
                                 <img
                                     class="
@@ -25,8 +45,10 @@
                                 <label
                                     for="picture"
                                     class="
-                                        h-7
-                                        w-7
+                                        h-6
+                                        md:h-7
+                                        w-6
+                                        md:w-7
                                         inline-flex
                                         items-center
                                         justify-center
@@ -67,8 +89,10 @@
                             <label
                                 for="picture"
                                 class="
-                                    h-28
-                                    w-28
+                                    h-24
+                                    md:h-28
+                                    w-24
+                                    md:w-28
                                     mx-auto
                                     relative
                                     block
@@ -80,8 +104,10 @@
                             >
                                 <svg
                                     class="
-                                        w-12
-                                        h-12
+                                        w-10
+                                        md:w-12
+                                        h-10
+                                        md:h-12
                                         absolute
                                         top-1/2
                                         left-1/2
@@ -112,7 +138,12 @@
                     </div>
                     <div class="mb-5">
                         <label
-                            class="font-medium text-lg text-gray-800"
+                            class="
+                                font-medium
+                                text-base
+                                md:text-lg
+                                text-gray-800
+                            "
                             for="email"
                             >Email</label
                         >
@@ -123,6 +154,7 @@
                                 bg-white
                                 border border-gray-500
                                 text-base text-gray-700
+                                lowercase
                                 rounded
                                 py-3
                                 px-5
@@ -136,7 +168,12 @@
                     </div>
                     <div class="mb-5">
                         <label
-                            class="font-medium text-lg text-gray-800"
+                            class="
+                                font-medium
+                                text-base
+                                md:text-lg
+                                text-gray-800
+                            "
                             for="username"
                             >Username</label
                         >
@@ -147,6 +184,7 @@
                                 bg-white
                                 border border-gray-500
                                 text-base text-gray-700
+                                lowercase
                                 rounded
                                 py-3
                                 px-5
@@ -160,7 +198,12 @@
                     </div>
                     <div class="mb-5">
                         <label
-                            class="font-medium text-lg text-gray-800"
+                            class="
+                                font-medium
+                                text-base
+                                md:text-lg
+                                text-gray-800
+                            "
                             for="oldPassword"
                             >Old Password</label
                         >
@@ -184,7 +227,12 @@
                     </div>
                     <div class="mb-5">
                         <label
-                            class="font-medium text-lg text-gray-800"
+                            class="
+                                font-medium
+                                text-base
+                                md:text-lg
+                                text-gray-800
+                            "
                             for="newPassword"
                             >New Password</label
                         >
@@ -208,7 +256,12 @@
                     </div>
                     <div class="mb-8">
                         <label
-                            class="font-medium text-lg text-gray-800"
+                            class="
+                                font-medium
+                                text-base
+                                md:text-lg
+                                text-gray-800
+                            "
                             for="confirmPassword"
                             >Confirm Password</label
                         >

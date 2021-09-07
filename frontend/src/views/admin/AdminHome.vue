@@ -1,8 +1,27 @@
 <template>
     <main>
         <div class="container">
-            <div class="w-8/12 mx-auto flex flex-wrap pt-5 pb-10">
-                <section class="w-full grid grid-flow-cols grid-cols-4 gap-x-4">
+            <div
+                class="
+                    w-full
+                    md:w-10/12
+                    lg:w-8/12
+                    mx-auto
+                    flex flex-wrap
+                    pt-5
+                    pb-10
+                    px-5
+                    md:px-0
+                "
+            >
+                <section
+                    class="
+                        w-full
+                        grid grid-flow-cols grid-cols-2
+                        md:grid-cols-4
+                        gap-x-4
+                    "
+                >
                     <router-link
                         class="bg-blue-500 text-center rounded py-4 px-8"
                         :to="{ name: 'AdminListUser' }"

@@ -1,8 +1,18 @@
 <template>
     <main>
         <div class="container">
-            <div class="w-10/12 mx-auto py-12">
-                <section class="px-16 mb-12">
+            <div class="w-full md:w-10/12 mx-auto py-6 md:py-12">
+                <section
+                    class="
+                        px-6
+                        md:px-8
+                        lg:px-12
+                        xl:px-16
+                        mb-2
+                        md:mb-10
+                        lg:mb-12
+                    "
+                >
                     <div class="flex items-center mb-3">
                         <h6
                             class="
@@ -28,9 +38,13 @@
                     <h1
                         class="
                             font-bold
-                            text-6xl text-gray-900
+                            text-3xl
+                            md:text-5xl
+                            lg:text-6xl
+                            text-gray-900
                             tracking-wide
-                            mb-6
+                            mb-5
+                            md:mb-6
                         "
                     >
                         {{ article.title }}
@@ -52,14 +66,14 @@
                         </div>
                     </div>
                 </section>
-                <div class="w-full py-12">
+                <div class="w-full py-8 md:py-10 lg:py-12">
                     <img
                         class="w-full object-cover rounded"
                         :src="getImage('articles', article.image)"
                         :alt="article.title"
                     />
                 </div>
-                <article class="px-16">
+                <article class="px-6 md:px-8 lg:px-12 xl:px-16">
                     <p class="text-base text-gray-800">
                         {{ article.description }}
                     </p>
@@ -70,7 +84,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
     name: 'ArticleDetail',
     props: {
@@ -80,10 +94,10 @@ export default {
         },
     },
     created() {
-        this.$store.dispatch('article/getSingleArticle', this.slug);
+        this.getArticle(this.slug);
     },
     methods: {
-        getImage(path ,img) {
+        getImage(path, img) {
             let imgShow =
                 img == null
                     ? 'https://avatars.dicebear.com/api/avataaars/fbi.svg'
@@ -98,6 +112,9 @@ export default {
                 year: 'numeric',
             });
         },
+        ...mapActions({
+            getArticle: 'article/getSingleArticle',
+        }),
     },
     computed: {
         ...mapState({

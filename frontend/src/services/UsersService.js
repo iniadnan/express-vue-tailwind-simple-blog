@@ -5,7 +5,8 @@ export default {
     getAllUser() {
         return apiClient.get('/users/all', {
             headers: {
-                Authorization: apiClient.defaults.headers.common['Authorization'],
+                Authorization:
+                    apiClient.defaults.headers.common['Authorization'],
             },
         });
     },

@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// CREATE AXIOS HANDLE
 const apiClient = axios.create({
     baseURL: `http://localhost:4500/api`,
     withCredentials: false,

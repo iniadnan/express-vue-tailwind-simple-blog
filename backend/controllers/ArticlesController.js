@@ -52,7 +52,7 @@ export const showAllAdminArticle = (req, res) => {
     req.headers["authorization"] == undefined
       ? res.sendStatus(401)
       : req.headers["authorization"].split(" ");
-  jwt.verify(bearerHeader[1], "the_secret_key", (err) => {
+  jwt.verify(bearerHeader[1], process.env.TOKEN_SECRET, (err) => {
     if (err) {
       res.sendStatus(401);
     } else {
@@ -84,7 +84,7 @@ export const showSingleAdminArticle = (req, res) => {
     req.headers["authorization"] == undefined
       ? res.sendStatus(401)
       : req.headers["authorization"].split(" ");
-  jwt.verify(bearerHeader[1], "the_secret_key", (err) => {
+  jwt.verify(bearerHeader[1], process.env.TOKEN_SECRET, (err) => {
     if (err) {
       res.sendStatus(401);
     } else {
@@ -105,7 +105,7 @@ export const createArticle = (req, res) => {
     req.headers["authorization"] == undefined
       ? res.sendStatus(401)
       : req.headers["authorization"].split(" ");
-  jwt.verify(bearerHeader[1], "the_secret_key", (err) => {
+  jwt.verify(bearerHeader[1], process.env.TOKEN_SECRET, (err) => {
     if (err) {
       res.sendStatus(401);
     } else {
@@ -117,6 +117,7 @@ export const createArticle = (req, res) => {
         description: req.body.description.trim(),
         tags: req.body.tags.trim(),
         location: req.body.location.trim(),
+        image: req.files == null ? null : req.files,
       };
       insertArticle(data, (err, results) => {
         if (err) {
@@ -135,7 +136,7 @@ export const updateArticle = (req, res) => {
     req.headers["authorization"] == undefined
       ? res.sendStatus(401)
       : req.headers["authorization"].split(" ");
-  jwt.verify(bearerHeader[1], "the_secret_key", (err) => {
+  jwt.verify(bearerHeader[1], process.env.TOKEN_SECRET, (err) => {
     if (err) {
       res.sendStatus(401);
     } else {
@@ -168,7 +169,7 @@ export const deleteOneArticle = (req, res) => {
     req.headers["authorization"] == undefined
       ? res.sendStatus(401)
       : req.headers["authorization"].split(" ");
-  jwt.verify(bearerHeader[1], "the_secret_key", (err) => {
+  jwt.verify(bearerHeader[1], process.env.TOKEN_SECRET, (err) => {
     if (err) {
       res.sendStatus(401);
     } else {
